@@ -1,0 +1,68 @@
+# ============================================================
+# MAYSOUN — The Career Bag · .gitignore
+# Clean, GitHub-Pages-ready. Keeps the repo lean.
+# ============================================================
+
+# ---- Dependencies ----
+node_modules/
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# ---- Next.js ----
+/.next/
+/out/
+/build/
+.next/
+
+# ---- Production / build artifacts ----
+*.tsbuildinfo
+next-env.d.ts
+
+# ---- Testing ----
+/coverage/
+
+# ---- Misc system files ----
+.DS_Store
+*.pem
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ---- Debug logs ----
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.log
+dev.log
+server.log
+
+# ---- Env files (never commit secrets) ----
+.env
+.env.*
+!.env.example
+
+# ---- IDE / editor ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# ---- Local-only stuff ----
+local-*
+.claude
+.z-ai-config
+prompt
+tool-results/
+
+# ---- GitHub Pages build artifact (created by Actions, not committed) ----
+/out/
