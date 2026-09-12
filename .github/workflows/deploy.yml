@@ -1,0 +1,77 @@
+# Deploy MAYSOUN — The Career Bag to GitHub Pages
+#
+# This workflow runs on every push to `main` (or `master`), builds the
+# Next.js app as a static site, and publishes it to GitHub Pages.
+#
+# One-time setup (only do this once per repo):
+#   1. Push this repo to GitHub.
+#   2. In the repo, go to  Settings → Pages → "Build and deployment"
+#      → Source: select "GitHub Actions".
+#   3. That's it. Push to main and the site goes live at:
+#        https://<your-username>.github.io/<repo-name>/
+#
+# The workflow automatically sets BASE_PATH to /<repo-name> so all
+# assets, images and links resolve correctly on Pages.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        env:
+          NODE_ENV: production
+          # GitHub Pages serves project repos from /<repo-name>/
+          # We inject the repo name as BASE_PATH automatically.
+          BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+        run: npm run build
+
+      - name: Add .nojekyll
+        # Tell GitHub Pages to skip Jekyll processing so _next/ folders
+        # (which start with underscore) are not hidden.
+        run: touch ./out/.nojekyll
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

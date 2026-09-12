@@ -1,0 +1,3 @@
+:HL["/maysoun-career-bag/_next/static/chunks/1u5s9vw_kccnk.css","style"]
+:HL["/maysoun-career-bag/_next/static/chunks/40uvq8ftrsdxx.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"-6GcD2s9jPtT-nCVkwJ1A"}
